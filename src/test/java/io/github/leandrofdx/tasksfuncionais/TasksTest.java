@@ -1,5 +1,7 @@
 package io.github.leandrofdx.tasksfuncionais;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
@@ -9,20 +11,23 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class TasksTest {
 
-	public WebDriver createDriver() {
-		System.setProperty("webdriver.chrome.driver",
-				"/Users/leandro/Documents/treinamentos/devops/drives-navegadores/chromedriver");
-		WebDriver driver = new ChromeDriver();
-		driver.navigate().to("http://localhost:8001/tasks/");
+	public WebDriver createDriver() throws MalformedURLException {
+//		System.setProperty("webdriver.chrome.driver",
+//				"/Users/leandro/Documents/treinamentos/devops/drives-navegadores/chromedriver");
+		DesiredCapabilities cap = DesiredCapabilities.chrome();
+		WebDriver driver = new RemoteWebDriver(new URL("http://192.168.1.4:4444/wd/hub"), cap);
+		driver.navigate().to("http://192.168.1.4:8001/tasks/");
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		return driver;
 	}
 
 	@Test
-	public void deveSalvarTarefaComSucesso() {
+	public void deveSalvarTarefaComSucesso() throws MalformedURLException {
 
 		WebDriver driver = createDriver();
 
@@ -35,11 +40,10 @@ public class TasksTest {
 		} finally {
 			driver.quit();
 		}
-
 	}
 
 	@Test
-	public void NaodeveSalvarTarefaSemDescricao() {
+	public void NaodeveSalvarTarefaSemDescricao() throws MalformedURLException {
 		WebDriver driver = createDriver();
 		try {
 			driver.findElement(By.id("addTodo")).click();
@@ -52,7 +56,7 @@ public class TasksTest {
 	}
 
 	@Test
-	public void NaodeveSalvarTarefaData() {
+	public void NaodeveSalvarTarefaData() throws MalformedURLException {
 
 		WebDriver driver = createDriver();
 		try {
