@@ -55,19 +55,19 @@ public class TasksTest {
 		}
 	}
 
-//	@Test
-//	public void NaodeveSalvarTarefaData() throws MalformedURLException {
-//
-//		WebDriver driver = createDriver();
-//		try {
-//			driver.findElement(By.id("addTodo")).click();
-//			driver.findElement(By.id("task")).sendKeys("Tese via selenium");
-//			driver.findElement(By.id("saveButton")).click();
-//			Assert.assertEquals("Fill the due date", driver.findElement(By.id("message")).getText());
-//		} finally {
-//			driver.quit();
-//		}
-//
-//	}
+	@Test
+	public void NaodeveSalvarTarefaData() throws MalformedURLException {
+
+		WebDriver driver = createDriver();
+		try {
+			driver.findElement(By.id("addTodo")).click();
+			driver.findElement(By.id("task")).sendKeys("Tese via selenium");
+			driver.findElement(By.id("saveButton")).click();
+			Assert.assertEquals("Fill the due date", driver.findElement(By.id("message")).getText());
+		} finally {
+			driver.quit();
+		}
+
+	}
 
 }
